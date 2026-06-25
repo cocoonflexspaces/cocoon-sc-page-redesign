@@ -187,8 +187,8 @@
     /* ─── HERO CAROUSEL — homepage pattern ─── */
     .hero-slider {
       position: relative;
-      height: 88vh;
-      min-height: 560px;
+      height: 76vh;
+      min-height: 480px;
       overflow: hidden;
     }
 
@@ -327,16 +327,28 @@
     .tab-panel { display: none; }
     .tab-panel.active {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items: center;
+      grid-template-columns: 2fr 3fr;
+      gap: 0;
+      align-items: stretch;
+      min-height: 520px;
+    }
+    .tab-copy {
+      padding-right: 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
     }
     .tab-panel-img {
-      aspect-ratio: 5/4;
       overflow: hidden;
-      border-radius: var(--radius);
+      border-radius: 0;
     }
-    .tab-panel-img img { width: 100%; height: 100%; object-fit: cover; }
+    .tab-panel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 860px) {
+      .tab-panel.active { grid-template-columns: 1fr; min-height: auto; }
+      .tab-copy { padding-right: 0; padding-bottom: 32px; }
+      .tab-panel-img { height: 300px; }
+    }
     .tab-copy h3 {
       font-weight: 700;
       font-size: clamp(24px, 2.6vw, 38px);
@@ -420,7 +432,8 @@
       transition: background 0.15s;
     }
     .svc-card:hover { background: var(--cream-deep); }
-    .svc-icon { font-size: 26px; margin-bottom: 14px; line-height: 1; }
+    .svc-icon { margin-bottom: 18px; color: var(--ink); opacity: 0.7; }
+    .svc-icon svg { width: 28px; height: 28px; display: block; }
     .svc-card h4 {
       font-size: 15px;
       font-weight: 700;
@@ -525,6 +538,100 @@
       transition: filter 0.2s;
     }
     .marquee-track img:hover { filter: grayscale(0%) opacity(0.9); }
+
+    /* ─── SC TRIGGER SECTION ─── */
+    .sc-trigger {
+      background: var(--cream);
+      overflow: hidden;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sc-trigger-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      min-height: 620px;
+    }
+    .sc-trigger-copy {
+      padding: clamp(64px, 9vh, 112px) clamp(40px, 5vw, 72px);
+    }
+    @media (max-width: 860px) {
+      .sc-trigger-inner { grid-template-columns: 1fr; min-height: auto; }
+      .sc-trigger-visual { order: -1; height: 360px; }
+      .sc-trigger-copy { padding: 48px 24px; }
+    }
+    .sc-trigger-visual {
+      position: relative;
+      overflow: hidden;
+    }
+    .sc-trigger-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+    }
+    /* ─── Editorial 1-2-3 steps ─── */
+    .sc-steps {
+      margin: 36px 0 40px;
+      border-top: 1px solid var(--rule);
+    }
+    .sc-step {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sc-step-n {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--terracotta);
+      min-width: 22px;
+    }
+    .sc-step-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ─── VENDOR MISSION SECTION ─── */
+    .vendor-mission {
+      background: var(--teal);
+      color: #fff;
+      padding: clamp(64px, 9vh, 112px) 0 0;
+    }
+    .vendor-mission .eyebrow { color: rgba(255,255,255,0.55); }
+    .vendor-mission .headline { color: #fff; max-width: 700px; }
+    .vendor-mission-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 28px;
+    }
+    @media (max-width: 720px) { .vendor-mission-cols { grid-template-columns: 1fr; } }
+    .vendor-mission-cols p {
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .vendor-mission .logos-label {
+      color: rgba(255,255,255,0.45);
+      margin-top: clamp(48px, 6vh, 80px);
+    }
+    .vendor-mission .marquee-track img {
+      filter: grayscale(100%) brightness(10) opacity(0.35);
+    }
+    .vendor-mission .marquee-track img:hover {
+      filter: grayscale(100%) brightness(10) opacity(0.6);
+    }
+    .vendor-mission .marquee-outer {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, white 10%, white 90%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, white 10%, white 90%, transparent 100%);
+    }
 
     /* ─── EVENT GALLERY ─── */
     .gallery-section { background: var(--cream); }
@@ -750,8 +857,8 @@
     <a href="https://cocoonflexspaces.com/">Spaces</a>
     <a href="https://cocoonflexspaces.com/search-event-spaces-by-activity-nyc/">Activities</a>
     <a href="https://cocoonflexspaces.com/create-space-blog/">Community</a>
+    <a href="https://cocoonflexspaces.com/request-a-booking/">Contact Us</a>
     <a href="https://cocoonflexspaces.com/monetize-your-space/">Monetize Your Space</a>
-    <a href="#request" class="nav-cta">Talk to Us</a>
   </div>
 </nav>
 
@@ -844,6 +951,43 @@
 
 
 <!-- ========================================================
+     SC TRIGGER — activates when you book a Cocoon space
+======================================================== -->
+<section class="sc-trigger" id="sc-trigger">
+  <div class="sc-trigger-inner">
+
+    <div class="sc-trigger-copy">
+      <div class="eyebrow">What Is SuperConcierge</div>
+      <h2 class="headline">Your venue booking unlocks a full event team.</h2>
+      <p class="lede">Most venues hand you keys and a floor plan. Cocoon goes further. Every booking comes with access to SuperConcierge — a dedicated service that connects you with pre-vetted caterers, photographers, AV specialists, florists, DJs, and more, all coordinated by us.</p>
+      <p style="color: var(--ink-soft); font-size: 16px; line-height: 1.75; margin-bottom: 0;">Unconventional space. Professional execution. No trade-off.</p>
+      <div class="sc-steps">
+        <div class="sc-step">
+          <span class="sc-step-n">01</span>
+          <span class="sc-step-label">Book your Cocoon space</span>
+        </div>
+        <div class="sc-step">
+          <span class="sc-step-n">02</span>
+          <span class="sc-step-label">Meet your SuperConcierge team</span>
+        </div>
+        <div class="sc-step">
+          <span class="sc-step-n">03</span>
+          <span class="sc-step-label">Arrive to a flawless event</span>
+        </div>
+      </div>
+      <a class="btn-primary" href="https://cocoonflexspaces.com/spaces/" target="_blank">Browse Our Spaces</a>
+    </div>
+
+    <div class="sc-trigger-visual">
+      <img src="https://cocoonflexspaces.com/wp-content/uploads/2025/06/cocoon-casa-duende-bts-private-events-wedding-emma-olson-closeup-magic-rooftop.jpg"
+           alt="Event atmosphere at Cocoon">
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ========================================================
      AUDIENCE TABS  — who is this for?
 ======================================================== -->
 <div class="audience">
@@ -853,37 +997,13 @@
     <p class="lede" style="max-width: 620px;">Whether you're celebrating a milestone, activating a brand, or bringing your company together — SuperConcierge removes the complexity. Tell us your vision; we handle everything else.</p>
 
     <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(event,'private')">Private Events</button>
-      <button class="tab-btn" onclick="switchTab(event,'brand')">Brand Activations</button>
+      <button class="tab-btn active" onclick="switchTab(event,'brand')">Brand Activations</button>
       <button class="tab-btn" onclick="switchTab(event,'corporate')">Corporate Events</button>
+      <button class="tab-btn" onclick="switchTab(event,'private')">Private Events</button>
     </div>
 
-    <!-- TAB: Private Events -->
-    <div id="tab-private" class="tab-panel active">
-      <div class="tab-panel-img">
-        <img src="https://cocoonflexspaces.com/wp-content/uploads/2025/11/cocoon-casa-duende-bts-private-event-wedding-welcome-station.jpg"
-             alt="Private wedding at Casa Duende">
-      </div>
-      <div class="tab-copy">
-        <h3>From intimate dinner to the wedding of your dreams.</h3>
-        <p class="lede">You deserve a celebration that feels effortless. We handle every detail — caterer, florist, photographer, DJ, staffing — so you can be fully in the moment.</p>
-        <ul class="tab-list">
-          <li>Weddings &amp; receptions</li>
-          <li>Milestone birthdays &amp; anniversary dinners</li>
-          <li>Dinner parties &amp; intimate gatherings</li>
-          <li>Baby showers &amp; bridal showers</li>
-          <li>Holiday parties &amp; seasonal celebrations</li>
-        </ul>
-        <a class="btn-primary" href="#request">Tell Us Your Vision</a>
-      </div>
-    </div>
-
-    <!-- TAB: Brand Activations -->
-    <div id="tab-brand" class="tab-panel">
-      <div class="tab-panel-img">
-        <img src="https://cocoonflexspaces.com/wp-content/uploads/2025/09/cocoon-casa-joy-brand-activation-bts-lauren-bruhn.jpg"
-             alt="Brand activation at Casa Joy">
-      </div>
+    <!-- TAB: Brand Activations (default) -->
+    <div id="tab-brand" class="tab-panel active">
       <div class="tab-copy">
         <h3>Everything an agency needs, nothing they don't.</h3>
         <p class="lede">Smaller agencies and in-house brand teams trust SuperConcierge to move fast without compromising on quality. One contact. One proposal. One flawless event.</p>
@@ -896,14 +1016,14 @@
         </ul>
         <a class="btn-primary" href="#request">Get a Custom Proposal</a>
       </div>
+      <div class="tab-panel-img">
+        <img src="https://cocoonflexspaces.com/wp-content/uploads/2025/09/cocoon-casa-joy-brand-activation-bts-lauren-bruhn.jpg"
+             alt="Brand activation at Casa Joy">
+      </div>
     </div>
 
     <!-- TAB: Corporate Events -->
     <div id="tab-corporate" class="tab-panel">
-      <div class="tab-panel-img">
-        <img src="https://cocoonflexspaces.com/wp-content/uploads/2025/03/cocoon-casa-sutton-bts-team-building-shante-brickhouse-portrait.jpg"
-             alt="Corporate team building">
-      </div>
       <div class="tab-copy">
         <h3>Full-service corporate events, fully handled.</h3>
         <p class="lede">From company offsites to team-building retreats to the holiday party — we take the planning entirely off your plate. F&amp;B, AV, activities, music, photography. All in one place, all in one proposal.</p>
@@ -915,6 +1035,30 @@
           <li>Holiday parties &amp; company milestones</li>
         </ul>
         <a class="btn-primary" href="#request">Get a Custom Proposal</a>
+      </div>
+      <div class="tab-panel-img">
+        <img src="https://cocoonflexspaces.com/wp-content/uploads/2025/03/cocoon-casa-sutton-bts-team-building-shante-brickhouse-portrait.jpg"
+             alt="Corporate team building">
+      </div>
+    </div>
+
+    <!-- TAB: Private Events -->
+    <div id="tab-private" class="tab-panel">
+      <div class="tab-copy">
+        <h3>From intimate dinner to the wedding of your dreams.</h3>
+        <p class="lede">You deserve a celebration that feels effortless. We handle every detail — caterer, florist, photographer, DJ, staffing — so you can be fully in the moment.</p>
+        <ul class="tab-list">
+          <li>Weddings &amp; receptions</li>
+          <li>Milestone birthdays &amp; anniversary dinners</li>
+          <li>Dinner parties &amp; intimate gatherings</li>
+          <li>Baby showers &amp; bridal showers</li>
+          <li>Holiday parties &amp; seasonal celebrations</li>
+        </ul>
+        <a class="btn-primary" href="#request">Tell Us Your Vision</a>
+      </div>
+      <div class="tab-panel-img">
+        <img src="https://cocoonflexspaces.com/wp-content/uploads/2024/08/casa-caeli-wedding-reception-rooftop-sunset-laugh.jpg"
+             alt="Wedding reception at Casa Caeli rooftop">
       </div>
     </div>
 
@@ -977,62 +1121,62 @@
 
     <div class="services-grid">
       <div class="svc-card">
-        <div class="svc-icon">🍽</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v9a3 3 0 006 0V3M11 3v6M5 3v6M22 3v4a5 5 0 01-5 5v13h-2V12a5 5 0 01-5-5V3"/></svg></div>
         <h4>Food &amp; Beverage</h4>
         <p>Curated caterer proposals across cuisines and price points. We source, negotiate, and coordinate the full F&amp;B experience.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">📸</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="24" height="16" rx="2"/><circle cx="14" cy="17" r="5"/><path d="M9.5 9l1.8-4h5.4l1.8 4"/><circle cx="21" cy="12" r="1" fill="currentColor" stroke="none"/></svg></div>
         <h4>Photography</h4>
         <p>Vetted photographers matched to your event's aesthetic — editorial, brand-focused, or celebratory. Multiple options, one proposal.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🎬</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="18" height="14" rx="2"/><path d="M20 12l6-3v10l-6-3V12z"/></svg></div>
         <h4>Videography</h4>
         <p>From brand highlight reels to full event documentation. We align the brief, book the crew, and handle all day-of logistics.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🎵</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21V9l14-4v12"/><circle cx="8" cy="21" r="3"/><circle cx="22" cy="17" r="3"/></svg></div>
         <h4>Music &amp; DJ</h4>
         <p>Live musicians, DJ sets, and curated playlists — carefully matched to the energy and tone you're creating.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">📺</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="24" height="17" rx="2"/><path d="M10 25h8M14 21v4"/></svg></div>
         <h4>AV &amp; Technology</h4>
         <p>Screens, projectors, microphones, lighting rigs — sourced, installed, tested, and fully operational before your first guest walks in.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🪑</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="13" width="18" height="3" rx="1"/><path d="M7 16v8M21 16v8M9 24h10M8 13V7a2 2 0 012-2h8a2 2 0 012 2v6"/></svg></div>
         <h4>Furniture &amp; Decor</h4>
         <p>Custom packages to transform any space — from intimate lounge settings to formal seated dinners to cocktail receptions.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🌿</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 23C6 23 4 14 8 8C12 2 23 2 23 2C23 2 23 13 17 17C11 21 6 23 6 23z"/><path d="M6 23L14 13"/></svg></div>
         <h4>Florals &amp; Greenery</h4>
         <p>Statement arrangements to subtle table accents — sourced through our local network of florists and floral designers.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🎯</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l2.5 7.5H24l-6.5 4.5 2.5 7.5L14 19l-6 4.5 2.5-7.5L4 11.5h7.5L14 4z"/></svg></div>
         <h4>Activities</h4>
         <p>Team-building workshops, cooking classes, wellness experiences, mixology sessions — we curate and coordinate.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🤝</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="4"/><path d="M2 25c0-4.4 3.6-8 8-8s8 3.6 8 8"/><circle cx="22" cy="9" r="3"/><path d="M27 25c0-3.3-2.7-6-6-6"/></svg></div>
         <h4>Staffing</h4>
         <p>Servers, bartenders, coat check, brand ambassadors — additional staff sourced, briefed, and managed by our team.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🛠</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="4"/><path d="M14 4v3M14 21v3M4 14h3M21 14h3M6.5 6.5l2.1 2.1M19.4 19.4l2.1 2.1M6.5 21.5l2.1-2.1M19.4 8.6l2.1-2.1"/></svg></div>
         <h4>Specialized Equipment</h4>
         <p>Satellite spaces, staging, specialty props, backdrops — anything beyond the standard setup, we source it.</p>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">💡</div>
+        <div class="svc-icon"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3a7 7 0 00-4 12.8V19h8v-3.2A7 7 0 0014 3z"/><path d="M10 22h8M11 25h6"/></svg></div>
         <h4>Consulting</h4>
         <p>Not sure where to start? Our event specialists help you shape the vision before we build the plan. Complimentary with every Cocoon booking.</p>
       </div>
       <div class="svc-card" style="background: var(--terracotta); border-right: none; border-bottom: none;">
-        <div class="svc-icon">✦</div>
+        <div class="svc-icon" style="opacity:1; color:#fff;"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v20M4 14h20"/></svg></div>
         <h4 style="color: #fff;">Don't see what you need?</h4>
         <p style="color: rgba(255,255,255,0.8);">If you can imagine it, we'll figure it out. We've sourced everything from custom neon signs to live falconers.</p>
         <a href="#request" style="color: #fff; font-weight: 600; font-size: 14px; display: inline-block; margin-top: 12px; text-decoration: none;">Ask us →</a>
@@ -1129,9 +1273,17 @@
 
 
 <!-- ========================================================
-     CLIENT LOGOS — CSS infinite marquee
+     VENDOR SOCIAL MISSION + client logos marquee
 ======================================================== -->
-<div class="logos-section">
+<section class="vendor-mission">
+  <div class="wrap">
+    <div class="eyebrow">Our Vendor Network</div>
+    <h2 class="headline">Established names. Rising talent. All merit-based.</h2>
+    <div class="vendor-mission-cols">
+      <p>Our vendors earn their place through one thing: quality. No pay-to-play, no listing fees. Our network spans award-winning caterers with decades of high-profile events behind them, celebrated photographers with editorial and brand work, and some of New York's most exciting independent talent — the kind of small businesses and solo creators that bring genuine investment to every single event.</p>
+      <p>That range is intentional. Whatever your event requires, SuperConcierge matches you with the right fit for the occasion and the budget — not whoever paid for placement. Because none of our vendors buy their spot, every recommendation we make is an honest one.</p>
+    </div>
+  </div>
   <p class="logos-label">Events we've powered for teams at</p>
   <div class="marquee-outer">
     <div class="marquee-track">
@@ -1169,7 +1321,7 @@
       <img src="https://cocoonflexspaces.com/wp-content/uploads/2024/05/the-new-times.svg" alt="The New Times">
     </div>
   </div>
-</div>
+</section>
 
 
 <!-- ========================================================
