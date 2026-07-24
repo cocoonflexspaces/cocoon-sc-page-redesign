@@ -301,6 +301,22 @@
 
     /* ─── AUDIENCE TABS ─── */
     .audience { background: #fff; }
+    .tab-bar-wrap {
+      position: relative;
+    }
+    .tab-bar-wrap::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 2px;
+      width: 64px;
+      background: linear-gradient(to right, transparent, #fff);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tab-bar-wrap.has-overflow::after { opacity: 1; }
     .tab-bar {
       display: flex;
       border-bottom: 2px solid var(--rule);
@@ -898,10 +914,33 @@
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         padding: 0 20px 20px;
+        position: relative;
       }
+      .comp-table-wrap::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 48px;
+        background: linear-gradient(to right, transparent, var(--ink));
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .comp-table-wrap.scrolled-end::after { opacity: 0; }
       .comp-table { min-width: 560px; font-size: 13px; }
       .comp-table thead th,
       .comp-table tbody td { padding: 12px 14px; }
+      .scroll-hint {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.35);
+        padding: 0 20px 14px;
+      }
+      .scroll-hint.hidden { display: none; }
 
       /* Gallery */
       .gallery-section .wrap { padding-left: 20px; padding-right: 20px; }
@@ -1082,10 +1121,12 @@
     <h2 class="headline">Built for every kind of event-maker.</h2>
     <p class="lede" style="max-width: 620px;">Whether you're celebrating a milestone, activating a brand, or bringing your company together — SuperConcierge removes the complexity. Tell us your vision; we handle everything else.</p>
 
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(event,'brand')">Brand Activations</button>
-      <button class="tab-btn" onclick="switchTab(event,'corporate')">Corporate Events</button>
-      <button class="tab-btn" onclick="switchTab(event,'private')">Private Events</button>
+    <div class="tab-bar-wrap" id="tabBarWrap">
+      <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" onclick="switchTab(event,'brand')">Brand Activations</button>
+        <button class="tab-btn" onclick="switchTab(event,'corporate')">Corporate Events</button>
+        <button class="tab-btn" onclick="switchTab(event,'private')">Private Events</button>
+      </div>
     </div>
 
     <!-- TAB: Brand Activations (default) -->
@@ -1294,7 +1335,8 @@
     <h2 class="headline">We do more for less friction.</h2>
     <p class="lede" style="max-width: 560px;">How SuperConcierge stacks up against hiring a traditional event planner — or trying to coordinate it all yourself.</p>
 
-    <div class="comp-table-wrap">
+    <div class="comp-table-wrap" id="compTableWrap">
+    <div class="scroll-hint" id="scrollHint">Swipe to compare &nbsp;→</div>
     <table class="comp-table">
       <thead>
         <tr>
@@ -1728,6 +1770,44 @@
 
     // Kick off auto-advance
     startAuto();
+  })();
+
+  /* ─── Scroll overflow hints ─── */
+  (function() {
+    // Tab bar — show right fade if content overflows
+    const tabBar = document.getElementById('tabBar');
+    const tabBarWrap = document.getElementById('tabBarWrap');
+    if (tabBar && tabBarWrap) {
+      const checkTabOverflow = () => {
+        if (tabBar.scrollWidth > tabBar.clientWidth) {
+          tabBarWrap.classList.add('has-overflow');
+        }
+        // Hide fade once scrolled to end
+        tabBar.addEventListener('scroll', () => {
+          const atEnd = tabBar.scrollLeft + tabBar.clientWidth >= tabBar.scrollWidth - 4;
+          tabBarWrap.classList.toggle('has-overflow', !atEnd);
+        });
+      };
+      checkTabOverflow();
+      window.addEventListener('resize', checkTabOverflow);
+    }
+
+    // Comparison table — show hint + right fade, hide once scrolled
+    const wrap = document.getElementById('compTableWrap');
+    const hint = document.getElementById('scrollHint');
+    if (wrap && hint) {
+      const check = () => {
+        const overflows = wrap.scrollWidth > wrap.clientWidth + 4;
+        if (!overflows) hint.classList.add('hidden');
+        wrap.addEventListener('scroll', () => {
+          const atEnd = wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 4;
+          wrap.classList.toggle('scrolled-end', atEnd);
+          if (atEnd) hint.classList.add('hidden');
+        });
+      };
+      check();
+      window.addEventListener('resize', check);
+    }
   })();
 
   /* ─── Audience tabs ─── */
