@@ -310,13 +310,15 @@
       right: 0;
       top: 0;
       bottom: 2px;
-      width: 64px;
+      width: 72px;
       background: linear-gradient(to right, transparent, #fff);
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.3s;
     }
-    .tab-bar-wrap.has-overflow::after { opacity: 1; }
+    @media (max-width: 768px) {
+      .tab-bar-wrap::after { opacity: 1; }
+      .tab-bar-wrap.scrolled-end::after { opacity: 0; }
+    }
     .tab-bar {
       display: flex;
       border-bottom: 2px solid var(--rule);
@@ -1773,42 +1775,30 @@
   })();
 
   /* ─── Scroll overflow hints ─── */
-  (function() {
-    // Tab bar — show right fade if content overflows
+  window.addEventListener('load', function() {
+    // Tab bar — hide right fade once scrolled to end
     const tabBar = document.getElementById('tabBar');
     const tabBarWrap = document.getElementById('tabBarWrap');
     if (tabBar && tabBarWrap) {
-      const checkTabOverflow = () => {
-        if (tabBar.scrollWidth > tabBar.clientWidth) {
-          tabBarWrap.classList.add('has-overflow');
-        }
-        // Hide fade once scrolled to end
-        tabBar.addEventListener('scroll', () => {
-          const atEnd = tabBar.scrollLeft + tabBar.clientWidth >= tabBar.scrollWidth - 4;
-          tabBarWrap.classList.toggle('has-overflow', !atEnd);
-        });
-      };
-      checkTabOverflow();
-      window.addEventListener('resize', checkTabOverflow);
+      tabBar.addEventListener('scroll', function() {
+        const atEnd = tabBar.scrollLeft + tabBar.clientWidth >= tabBar.scrollWidth - 4;
+        tabBarWrap.classList.toggle('scrolled-end', atEnd);
+      });
     }
 
-    // Comparison table — show hint + right fade, hide once scrolled
+    // Comparison table — hide hint + fade once scrolled to end
     const wrap = document.getElementById('compTableWrap');
     const hint = document.getElementById('scrollHint');
     if (wrap && hint) {
-      const check = () => {
-        const overflows = wrap.scrollWidth > wrap.clientWidth + 4;
-        if (!overflows) hint.classList.add('hidden');
-        wrap.addEventListener('scroll', () => {
-          const atEnd = wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 4;
-          wrap.classList.toggle('scrolled-end', atEnd);
-          if (atEnd) hint.classList.add('hidden');
-        });
-      };
-      check();
-      window.addEventListener('resize', check);
+      // Hide hint if table doesn't overflow (desktop)
+      if (wrap.scrollWidth <= wrap.clientWidth + 4) hint.classList.add('hidden');
+      wrap.addEventListener('scroll', function() {
+        const atEnd = wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 4;
+        wrap.classList.toggle('scrolled-end', atEnd);
+        if (atEnd) hint.classList.add('hidden');
+      });
     }
-  })();
+  });
 
   /* ─── Audience tabs ─── */
   function switchTab(e, id) {
