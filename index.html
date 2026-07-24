@@ -315,11 +315,31 @@
       pointer-events: none;
       opacity: 0;
     }
+    .tab-scroll-hint {
+      display: none;
+    }
     @media (max-width: 768px) {
-      /* Remove the gradient — partially visible tab does the job instead */
       .tab-bar-wrap::after { display: none; }
-      /* Each tab fixed width so first two fill ~85% of screen, third peeks */
-      .tab-btn { flex: 0 0 170px; text-align: center; }
+      .tab-scroll-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 2px;
+        width: 44px;
+        background: linear-gradient(to right, transparent, #fff 40%);
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .tab-scroll-hint svg {
+        width: 18px;
+        height: 18px;
+        color: var(--terracotta);
+        flex-shrink: 0;
+      }
+      .tab-scroll-hint.hidden { opacity: 0; }
     }
     .tab-bar {
       display: flex;
@@ -1131,6 +1151,11 @@
         <button class="tab-btn" onclick="switchTab(event,'corporate')">Corporate Events</button>
         <button class="tab-btn" onclick="switchTab(event,'private')">Private Events</button>
       </div>
+      <div class="tab-scroll-hint" id="tabScrollHint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
     </div>
 
     <!-- TAB: Brand Activations (default) -->
@@ -1778,13 +1803,13 @@
 
   /* ─── Scroll overflow hints ─── */
   window.addEventListener('load', function() {
-    // Tab bar — hide right fade once scrolled to end
+    // Tab bar — hide arrow once scrolled to end
     const tabBar = document.getElementById('tabBar');
-    const tabBarWrap = document.getElementById('tabBarWrap');
-    if (tabBar && tabBarWrap) {
+    const tabScrollHint = document.getElementById('tabScrollHint');
+    if (tabBar && tabScrollHint) {
       tabBar.addEventListener('scroll', function() {
         const atEnd = tabBar.scrollLeft + tabBar.clientWidth >= tabBar.scrollWidth - 4;
-        tabBarWrap.classList.toggle('scrolled-end', atEnd);
+        tabScrollHint.classList.toggle('hidden', atEnd);
       });
     }
 
